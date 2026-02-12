@@ -253,7 +253,6 @@ const App: React.FC = () => {
                   <span className="text-xl font-bold">{CHRIS_DATA.phone}</span>
                 </a>
               </div>
-              <button onClick={handleDownload} className="px-16 py-8 bg-blue-600 text-white font-black rounded-[2.5rem] text-2xl hover:bg-blue-500 shadow-2xl transition-all">Download Exact Resume PDF</button>
             </div>
           </div>
         </section>
