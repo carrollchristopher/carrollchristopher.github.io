@@ -9,7 +9,7 @@ export const CHRIS_DATA = {
   email: "Carroll7044@gmail.com",
   phone: "631-521-0628",
   linkedin: "https://www.linkedin.com/in/christopher-c-857a5722b/",
-  github: "https://github.com/",
+  github: "https://github.com/carrollchristopher",
   resumeUrl: "/resume.pdf", // Placeholder for actual file path
   profileImage: new URL("./assets/profile.jpg", import.meta.url).href,
   brandStory: "I thrive in the 'escalation' phase—where complexity meets critical impact. My career is defined by transforming fragmented infrastructure into hardened, automated, and secure hybrid systems. I don't just fix servers; I architect the operational maturity that allows businesses to scale without fear of downtime.",
