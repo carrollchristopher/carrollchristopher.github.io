@@ -242,7 +242,7 @@ const App: React.FC = () => {
         <section id="contact" className="py-40 bg-slate-950 reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
             <div className="bg-gradient-to-br from-blue-900/10 via-slate-900 to-slate-950 border border-white/5 rounded-[5rem] p-16 lg:p-32">
-              <h2 className="text-6xl lg:text-[9rem] font-black leading-[0.8] tracking-tighter mb-12">Architect <br /><span className="text-shimmer">Excellence</span>.</h2>
+              <h2 className="text-6xl lg:text-[9rem] font-black leading-[0.8] tracking-tighter mb-12">Contact <br /><span className="text-shimmer">Me</span>!</h2>
               <div className="flex flex-wrap justify-center gap-10 mb-20">
                 <a href={`mailto:${CHRIS_DATA.email}`} className="flex flex-col items-center p-12 glass-card rounded-[3rem] hover:bg-blue-600 transition-all min-w-[300px]">
                   <Mail size={48} className="mb-6 text-blue-400 group-hover:text-white" />
