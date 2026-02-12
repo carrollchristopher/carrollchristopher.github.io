@@ -11,7 +11,7 @@ export const CHRIS_DATA = {
   linkedin: "https://www.linkedin.com/in/christopher-c-857a5722b/",
   github: "https://github.com/",
   resumeUrl: "/resume.pdf", // Placeholder for actual file path
-  profileImage: "https://media.licdn.com/dms/image/v2/D4E03AQE6BfS3A8N4oA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1715699477545?e=1744848000&v=beta&t=M8X7y3p-8A3u3K5_R-xS8Y7Z5M8Y7Z5M8Y7Z5M8Y7Z5",
+  profileImage: new URL("./assets/profile.jpg", import.meta.url).href,
   brandStory: "I thrive in the 'escalation' phase—where complexity meets critical impact. My career is defined by transforming fragmented infrastructure into hardened, automated, and secure hybrid systems. I don't just fix servers; I architect the operational maturity that allows businesses to scale without fear of downtime.",
   about: "Dynamic IT engineer with deep expertise in hybrid cloud and on-prem infrastructure. Specialized in virtualization, automation, networking, and security, I deliver operational maturity through platforms like Azure, Hyper-V, VMware, and Kubernetes.",
   kpis: [
