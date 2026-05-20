@@ -1,11 +1,16 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { 
-  Mail, Phone, Download, MapPin, Linkedin, Github, 
-  ChevronRight, ChevronUp, Terminal, Cloud, Shield, 
-  Menu, X, Award, BookOpen, Zap, Globe, Compass, BarChart3
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import {
+  Mail, Phone, Download, MapPin, Linkedin, Github,
+  ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Compass
 } from 'lucide-react';
+import { SplineScene } from '@/components/ui/splite';
+import { Card } from '@/components/ui/card';
+import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS } from './constants';
+
+// Lazy-load the WebGL aurora so three.js stays out of the initial bundle.
+const AnoAI = lazy(() => import('@/components/ui/animated-shader-background'));
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,14 +58,19 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="relative min-h-screen text-slate-100">
+      {/* Animated aurora shader background (21st.dev) */}
+      <Suspense fallback={null}>
+        <AnoAI />
+      </Suspense>
+
       {/* Scroll Progress */}
       <div className="fixed top-0 left-0 w-full h-1 z-[100] pointer-events-none">
         <div className="h-full bg-blue-500 shadow-[0_0_15px_#3b82f6] transition-all duration-300" style={{ width: `${scrollProgress}%` }} />
       </div>
 
       {/* Floating Action Button */}
-      <button 
+      <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-8 right-8 z-[95] p-4 bg-blue-600 rounded-2xl shadow-2xl transition-all duration-500 transform ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'}`}
       >
@@ -98,7 +108,7 @@ const App: React.FC = () => {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-0 z-[85] bg-slate-950 p-8 pt-32 transition-all duration-500 ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}`}>
+      <div className={`lg:hidden fixed inset-0 z-[85] bg-slate-950/95 backdrop-blur-xl p-8 pt-32 transition-all duration-500 ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}`}>
         <div className="space-y-6">
           {['About', 'Experience', 'Skills', 'Education', 'Contact'].map(item => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={(e) => scrollToSection(e, item.toLowerCase())} className="block text-4xl font-black border-b border-white/5 pb-4">{item}</a>
@@ -107,39 +117,90 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      <main className="relative">
-        <div className="ombre-glow top-0 right-0 -mr-40 mt-20 opacity-40"></div>
-        <div className="ombre-glow bottom-0 left-0 -ml-40 mb-20 opacity-30"></div>
+      <main className="relative z-10">
+        {/* Hero — Interactive 3D (Spline + Spotlight) */}
+        <section id="hero" className="relative px-6 lg:px-12 pt-32 pb-20 lg:pt-40 lg:pb-28">
+          <div className="max-w-7xl mx-auto reveal active">
+            <Card className="w-full min-h-[640px] lg:h-[660px] bg-black/[0.9] relative overflow-hidden border border-white/10 rounded-[2.5rem] shadow-2xl shadow-blue-500/10">
+              <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
-        {/* Hero */}
-        <section id="hero" className="relative pt-48 pb-24 lg:pt-64 lg:pb-48 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-24 relative z-10">
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-blue-600/10 border border-blue-600/20 text-blue-400 mb-10">
-                <Zap size={16} className="mr-2 fill-blue-400" /> <span className="text-[10px] font-black uppercase tracking-[0.2em]">Senior Escalation Resource</span>
-              </div>
-              <h1 className="text-6xl md:text-8xl xl:text-[10rem] font-black leading-[0.85] tracking-tighter mb-10">
-                Resilient <br /><span className="text-shimmer">Infrastructure</span> <br />Architect.
-              </h1>
-              <p className="text-xl lg:text-3xl text-slate-400 font-medium max-w-2xl mx-auto lg:mx-0 mb-16 leading-tight">
-                Hardening hybrid ecosystems through <span className="text-white">automation</span> and <span className="text-white">strategic engineering</span>.
-              </p>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-6">
-                <button onClick={handleDownload} className="px-12 py-6 bg-blue-600 text-white font-black text-xl rounded-[2rem] shadow-2xl hover:bg-blue-500 transition-all active:scale-95">Download PDF</button>
-                <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} className="px-12 py-6 bg-slate-900 border border-white/10 font-black text-xl rounded-[2rem] hover:bg-slate-800 transition-all">View Velocity</a>
-              </div>
-            </div>
-
-            <div className="lg:w-[500px] reveal active">
-              <div className="relative w-80 h-80 md:w-[480px] md:h-[480px] rounded-[5rem] overflow-hidden border border-white/10 shadow-2xl shadow-blue-500/10 bg-slate-900">
-                <img src={CHRIS_DATA.profileImage} alt="Chris Carroll" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                     onError={(e) => (e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop")} />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
-                <div className="absolute bottom-10 left-10 right-10 p-6 glass-card rounded-3xl border border-white/10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white"><Compass className="animate-spin-slow" /></div>
-                    <div className="text-left"><p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Active Stack</p><p className="text-sm font-bold">Hybrid Cloud & Security</p></div>
+              <div className="flex flex-col lg:flex-row h-full">
+                {/* Left content */}
+                <div className="flex-1 p-8 lg:p-14 relative z-10 flex flex-col justify-center">
+                  <div className="inline-flex items-center self-start px-4 py-2 rounded-2xl bg-blue-600/10 border border-blue-600/20 text-blue-400 mb-8">
+                    <Zap size={16} className="mr-2 fill-blue-400" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Senior Escalation Resource</span>
                   </div>
+
+                  <h1 className="text-4xl md:text-5xl xl:text-6xl font-black leading-[0.95] tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                    Resilient<br />Infrastructure<br />Architect.
+                  </h1>
+
+                  <p className="mt-6 text-neutral-300 max-w-lg text-base lg:text-lg leading-relaxed">
+                    Hardening hybrid cloud and on-prem ecosystems through <span className="text-white font-semibold">automation</span> and <span className="text-white font-semibold">strategic engineering</span> — turning complexity into uptime.
+                  </p>
+
+                  <div className="mt-9 flex flex-wrap gap-4">
+                    <button onClick={handleDownload} className="px-8 py-4 bg-blue-600 text-white font-black rounded-2xl shadow-2xl shadow-blue-600/20 hover:bg-blue-500 transition-all active:scale-95">
+                      <Download className="inline w-5 h-5 mr-2 -mt-1" /> Download Resume
+                    </button>
+                    <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} className="px-8 py-4 bg-white/5 border border-white/10 font-black rounded-2xl hover:bg-white/10 transition-all">
+                      View Experience
+                    </a>
+                  </div>
+
+                  <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-neutral-400 font-medium">
+                    <span className="inline-flex items-center gap-2"><MapPin size={16} className="text-blue-400" /> {CHRIS_DATA.location}</span>
+                    <a href={`mailto:${CHRIS_DATA.email}`} className="inline-flex items-center gap-2 hover:text-white transition-colors"><Mail size={16} className="text-blue-400" /> {CHRIS_DATA.email}</a>
+                    <a href={`tel:${CHRIS_DATA.phone.replace(/\D/g, '')}`} className="inline-flex items-center gap-2 hover:text-white transition-colors"><Phone size={16} className="text-blue-400" /> {CHRIS_DATA.phone}</a>
+                  </div>
+                </div>
+
+                {/* Right content — interactive 3D scene */}
+                <div className="flex-1 relative min-h-[320px] lg:min-h-0">
+                  <SplineScene
+                    scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </section>
+
+        {/* About */}
+        <section id="about" className="relative py-32 bg-slate-950/75 backdrop-blur-sm border-y border-white/5 reveal">
+          <div className="ombre-glow top-0 right-0 -mr-40 mt-20 opacity-40"></div>
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+              {/* Profile */}
+              <div className="lg:w-[440px] shrink-0">
+                <div className="relative w-72 h-72 md:w-[420px] md:h-[420px] mx-auto rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl shadow-blue-500/10 bg-slate-900">
+                  <img src={CHRIS_DATA.profileImage} alt="Chris Carroll" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                       onError={(e) => (e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop")} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
+                  <div className="absolute bottom-8 left-8 right-8 p-6 glass-card rounded-3xl">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white"><Compass className="animate-spin-slow" /></div>
+                      <div className="text-left"><p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Active Stack</p><p className="text-sm font-bold">Hybrid Cloud &amp; Security</p></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bio + KPIs */}
+              <div className="flex-1 text-left">
+                <h2 className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase mb-4">The Brand Story</h2>
+                <h3 className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Taming Complexity.</h3>
+                <p className="text-lg lg:text-xl text-slate-300 font-medium leading-relaxed mb-6">{CHRIS_DATA.brandStory}</p>
+                <p className="text-base text-slate-400 leading-relaxed mb-12">{CHRIS_DATA.about}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {CHRIS_DATA.kpis.map((kpi, i) => (
+                    <div key={i} className="glass-card rounded-3xl p-6 text-center">
+                      <p className="text-3xl lg:text-4xl font-black text-shimmer">{kpi.value}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-3 leading-tight">{kpi.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -147,7 +208,7 @@ const App: React.FC = () => {
         </section>
 
         {/* Experience */}
-        <section id="experience" className="py-40 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 reveal">
+        <section id="experience" className="py-40 bg-slate-950/80 backdrop-blur-sm reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-32">
               <h2 className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase mb-4">Impact Analysis</h2>
@@ -177,8 +238,12 @@ const App: React.FC = () => {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="py-40 bg-slate-950 reveal">
+        <section id="skills" className="py-40 bg-slate-950/70 backdrop-blur-sm reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="text-center mb-24">
+              <h2 className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase mb-4">Capability Matrix</h2>
+              <h3 className="text-5xl lg:text-7xl font-black tracking-tighter">Engineering Arsenal.</h3>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {SKILLS.map((cat, i) => (
                 <div key={i} className="glass-card p-10 rounded-[3.5rem] hover:border-blue-500/20 transition-all text-left">
@@ -194,8 +259,8 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Education & Certifications Section */}
-        <section id="education" className="py-40 bg-gradient-to-b from-slate-950 to-slate-900 reveal">
+        {/* Education & Certifications */}
+        <section id="education" className="py-40 bg-slate-950/80 backdrop-blur-sm reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex flex-col lg:flex-row gap-20">
               {/* Academic History */}
@@ -219,7 +284,7 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Certifications Card */}
+              {/* Certifications */}
               <div className="lg:w-2/5 text-left">
                 <div className="flex items-center gap-6 mb-16">
                    <div className="w-16 h-16 bg-blue-600/10 rounded-[2rem] border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-2xl"><Award size={32} /></div>
@@ -239,16 +304,16 @@ const App: React.FC = () => {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="py-40 bg-slate-950 reveal">
+        <section id="contact" className="py-40 bg-slate-950/70 backdrop-blur-sm reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-            <div className="bg-gradient-to-br from-blue-900/10 via-slate-900 to-slate-950 border border-white/5 rounded-[5rem] p-16 lg:p-32">
+            <div className="bg-gradient-to-br from-blue-900/20 via-slate-900/60 to-slate-950/60 border border-white/5 rounded-[5rem] p-16 lg:p-32 backdrop-blur-md">
               <h2 className="text-6xl lg:text-[9rem] font-black leading-[0.8] tracking-tighter mb-12">Contact <br /><span className="text-shimmer">Me</span>!</h2>
-              <div className="flex flex-wrap justify-center gap-10 mb-20">
-                <a href={`mailto:${CHRIS_DATA.email}`} className="flex flex-col items-center p-12 glass-card rounded-[3rem] hover:bg-blue-600 transition-all min-w-[300px]">
+              <div className="flex flex-wrap justify-center gap-10 mb-4">
+                <a href={`mailto:${CHRIS_DATA.email}`} className="group flex flex-col items-center p-12 glass-card rounded-[3rem] hover:bg-blue-600 transition-all min-w-[300px]">
                   <Mail size={48} className="mb-6 text-blue-400 group-hover:text-white" />
                   <span className="text-xl font-bold">{CHRIS_DATA.email}</span>
                 </a>
-                <a href={`tel:${CHRIS_DATA.phone.replace(/\D/g, '')}`} className="flex flex-col items-center p-12 glass-card rounded-[3rem] hover:bg-indigo-600 transition-all min-w-[300px]">
+                <a href={`tel:${CHRIS_DATA.phone.replace(/\D/g, '')}`} className="group flex flex-col items-center p-12 glass-card rounded-[3rem] hover:bg-indigo-600 transition-all min-w-[300px]">
                   <Phone size={48} className="mb-6 text-blue-400 group-hover:text-white" />
                   <span className="text-xl font-bold">{CHRIS_DATA.phone}</span>
                 </a>
@@ -259,7 +324,7 @@ const App: React.FC = () => {
       </main>
 
       {/* FOOTER */}
-      <footer className="py-20 border-t border-white/5">
+      <footer className="relative z-10 py-20 border-t border-white/5 bg-slate-950/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex items-center gap-6">
             <div className="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center font-black text-2xl">CC</div>
@@ -267,8 +332,8 @@ const App: React.FC = () => {
           </div>
           <p className="text-slate-600 font-bold text-sm">© {new Date().getFullYear()} // PROFESSIONAL BRAND SYSTEM</p>
           <div className="flex gap-8">
-            <a href={CHRIS_DATA.linkedin} target="_blank" className="text-slate-500 hover:text-white transition-colors"><Linkedin size={32} /></a>
-            <a href={CHRIS_DATA.github} target="_blank" className="text-slate-500 hover:text-white transition-colors"><Github size={32} /></a>
+            <a href={CHRIS_DATA.linkedin} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors"><Linkedin size={32} /></a>
+            <a href={CHRIS_DATA.github} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors"><Github size={32} /></a>
           </div>
         </div>
       </footer>

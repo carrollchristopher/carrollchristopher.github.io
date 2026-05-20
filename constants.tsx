@@ -110,7 +110,7 @@ export const EDUCATION: EducationItem[] = [
     institution: "Florida Atlantic University",
     degree: "Master of Science, Information Technology & Management",
     major: "Cybersecurity focus",
-    date: "Expected May 2025",
+    date: "May 2026",
     gpa: "4.0",
     highlights: ["Concentration: IT Strategy & Scalability"]
   },
