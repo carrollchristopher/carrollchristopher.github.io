@@ -197,7 +197,7 @@ const App: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {CHRIS_DATA.kpis.map((kpi, i) => (
                     <div key={i} className="glass-card rounded-3xl p-6 text-center">
-                      <p className="text-3xl lg:text-4xl font-black text-shimmer leading-[1.3] pb-1">{kpi.value}</p>
+                      <p className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight [text-shadow:0_0_24px_rgba(96,165,250,0.4)]">{kpi.value}</p>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-3 leading-tight">{kpi.label}</p>
                     </div>
                   ))}
