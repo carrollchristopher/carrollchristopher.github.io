@@ -48,12 +48,28 @@
     #000;
 }
 
-/* ----- Brand utilities ----- */
-.glass-card {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* ----- Surfaces ----- */
+.panel {
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.panel-hover {
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.panel-hover:hover {
+  background-color: rgba(15, 23, 42, 0.8);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #60a5fa;
 }
 
 .text-shimmer {
@@ -74,17 +90,6 @@
   }
 }
 
-.ombre-glow {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Sections below the fold skip style, layout, and paint until they get close to the viewport. */
 /* Only hidden when scripts run, so the prerendered page stays readable without JavaScript. */
 .js .reveal {
   opacity: 0;
@@ -127,33 +132,4 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #3b82f6;
-}
-
-/* ----- Print: resume export via window.print ----- */
-#resume-print-template {
-  display: none;
-}
-
-@media print {
-  @page {
-    size: auto;
-    margin: 15mm;
-  }
-  html,
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  /* Hide everything except the print template */
-  #root > div > *:not(#resume-print-template) {
-    display: none !important;
-  }
-  #resume-print-template {
-    display: block !important;
-    width: 100% !important;
-  }
-  a {
-    text-decoration: none !important;
-    color: black !important;
-  }
 }
