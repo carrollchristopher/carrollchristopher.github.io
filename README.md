@@ -1,37 +1,45 @@
 <div align="center">
-  <img src="assets/banner.png" alt="Christopher Carroll | System Engineer" width="100%" />
+  <img src="public/og.jpg" alt="Chris Carroll, Escalation Lead Engineer and Cloud Architect" width="100%" />
 </div>
 
-# Christopher Carroll | Personal Brand Site
+# Christopher Carroll | Personal Site
 
-Source code for my personal brand website.
+Source for my personal site.
 
 Live site: https://carrollchristopher.github.io/
 
 ## Tech Stack
+
 - Vite
 - React
 - TypeScript
+- Tailwind CSS
+- WebGL background shader
+- Spline 3D hero scene
 
 ## Local Development
 
 Prerequisites:
-- Node.js (LTS recommended)
+
+- Node.js 24 LTS
 
 Steps:
-1. Install dependencies:
-   npm install
-2. Start the dev server:
-   npm run dev
+
+1. Install dependencies: `npm install`
+2. Start the dev server: `npm run dev`
 
 ## Build
 
-1. Build the production site:
-   npm run build
-2. Preview the production build locally:
-   npm run preview
+1. Type-check: `npm run typecheck`
+2. Build the production site: `npm run build`
+3. Preview the production build locally: `npm run preview`
 
 ## Deployment
 
-This site is deployed via GitHub Pages using GitHub Actions.
-Pushes to the main branch automatically trigger a build and deploy.
+The site deploys to GitHub Pages through GitHub Actions. Every push to `main` type-checks, builds, and publishes `dist`.
+
+## Performance Notes
+
+- The hero shows a static poster of the 3D scene. The Spline runtime loads only on large pointer-driven screens after the first interaction, and pauses when scrolled out of view.
+- The aurora background is plain WebGL, capped at 30 fps, drawn at reduced resolution, and paused in hidden tabs. Devices without hardware-accelerated WebGL keep a static CSS gradient.
+- Fonts and images are self-hosted: one variable WOFF2 subset and WebP images.

@@ -1,4 +1,6 @@
 import { ExperienceItem, EducationItem, SkillCategory } from './types';
+import profileImage from './assets/profile.webp';
+import profileImageSmall from './assets/profile-400.webp';
 
 export const CHRIS_DATA = {
   name: "Chris Carroll",
@@ -9,7 +11,8 @@ export const CHRIS_DATA = {
   phone: "631-521-0628",
   linkedin: "https://www.linkedin.com/in/christopher-c-857a5722b/",
   github: "https://github.com/carrollchristopher",
-  profileImage: new URL("./assets/profile.jpg", import.meta.url).href,
+  profileImage,
+  profileImageSmall,
   bio: [
     "Driven and results-oriented Cloud Architect with a strong foundation in cybersecurity, IT infrastructure, and enterprise solutions. Possessing a robust academic foundation in MIS Cybersecurity, I currently serve as an Escalation Lead Engineer at Dedicated IT. In this capacity, I specialize in architecting, deploying, and refining sophisticated cloud/hybrid infrastructures that drive secure operational excellence and innovation.",
     "Complementing my infrastructure expertise is in-depth, hands-on knowledge of full stack development, application load balancing, and database management. I design and deliver end-to-end solutions across modern web frameworks, reverse proxies, and relational database systems, engineering resilient, high-availability platforms that bridge the gap between infrastructure and application layers. Underpinning this work is a mature DevOps practice. I containerize and orchestrate workloads, define environments through infrastructure as code, and automate operations with scripting and observability tooling, ensuring every deployment is repeatable, secure, and reliable.",
