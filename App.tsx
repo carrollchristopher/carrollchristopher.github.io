@@ -129,7 +129,7 @@ const App: React.FC = () => {
                 <div className="flex-1 p-8 lg:p-14 relative z-10 flex flex-col justify-center">
                   <div className="inline-flex items-center self-start px-4 py-2 rounded-2xl bg-blue-600/10 border border-blue-600/20 text-blue-400 mb-8">
                     <Zap size={16} className="mr-2 fill-blue-400" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Senior Escalation Resource</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">{CHRIS_DATA.subtitle}</span>
                   </div>
 
                   <h1 className="text-4xl md:text-5xl xl:text-6xl font-black leading-[0.95] tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
@@ -137,7 +137,7 @@ const App: React.FC = () => {
                   </h1>
 
                   <p className="mt-6 text-neutral-300 max-w-lg text-base lg:text-lg leading-relaxed">
-                    Hardening hybrid cloud and on-prem ecosystems through <span className="text-white font-semibold">automation</span> and <span className="text-white font-semibold">strategic engineering</span> — turning complexity into uptime.
+                    Hardening hybrid cloud and on-prem ecosystems through <span className="text-white font-semibold">automation</span> and <span className="text-white font-semibold">strategic engineering</span>, turning complexity into uptime.
                   </p>
 
                   <div className="mt-9 flex flex-wrap gap-4">
@@ -192,8 +192,11 @@ const App: React.FC = () => {
               <div className="flex-1 text-left">
                 <h2 className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase mb-4">The Brand Story</h2>
                 <h3 className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Taming Complexity.</h3>
-                <p className="text-lg lg:text-xl text-slate-300 font-medium leading-relaxed mb-6">{CHRIS_DATA.brandStory}</p>
-                <p className="text-base text-slate-400 leading-relaxed mb-12">{CHRIS_DATA.about}</p>
+                {CHRIS_DATA.bio.map((paragraph, i) => (
+                  <p key={i} className={i === 0 ? "text-lg lg:text-xl text-slate-300 font-medium leading-relaxed mb-6" : `text-base text-slate-400 leading-relaxed ${i === CHRIS_DATA.bio.length - 1 ? 'mb-12' : 'mb-6'}`}>
+                    {paragraph}
+                  </p>
+                ))}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {CHRIS_DATA.kpis.map((kpi, i) => (
                     <div key={i} className="glass-card rounded-3xl p-6 text-center">
@@ -244,7 +247,7 @@ const App: React.FC = () => {
               <h2 className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase mb-4">Capability Matrix</h2>
               <h3 className="text-5xl lg:text-7xl font-black tracking-tighter">Engineering Arsenal.</h3>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {SKILLS.map((cat, i) => (
                 <div key={i} className="glass-card p-10 rounded-[3.5rem] hover:border-blue-500/20 transition-all text-left">
                   <h4 className="text-2xl font-black text-blue-400 mb-8">{cat.title}</h4>
@@ -279,6 +282,7 @@ const App: React.FC = () => {
                       <div className="inline-flex items-center gap-4 bg-white/5 px-6 py-2 rounded-2xl border border-white/5">
                         <span className="text-lg font-black text-white">GPA {edu.gpa}</span>
                       </div>
+                      {edu.highlights?.map((h) => <p key={h} className="text-sm text-slate-400 mt-3">{h}</p>)}
                     </div>
                   ))}
                 </div>
@@ -330,7 +334,7 @@ const App: React.FC = () => {
             <div className="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center font-black text-2xl">CC</div>
             <div className="text-left"><span className="block text-2xl font-black">Chris Carroll</span><span className="text-slate-500 text-sm font-bold uppercase tracking-widest">Escalation Lead Engineer</span></div>
           </div>
-          <p className="text-slate-600 font-bold text-sm">© {new Date().getFullYear()} // PROFESSIONAL BRAND SYSTEM</p>
+          <p className="text-slate-600 font-bold text-sm">© {new Date().getFullYear()} {CHRIS_DATA.name}</p>
           <div className="flex gap-8">
             <a href={CHRIS_DATA.linkedin} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors"><Linkedin size={32} /></a>
             <a href={CHRIS_DATA.github} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors"><Github size={32} /></a>
@@ -341,8 +345,8 @@ const App: React.FC = () => {
       {/* HIDDEN RESUME PRINT TEMPLATE */}
       <div id="resume-print-template" className="p-10 text-black leading-tight bg-white">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold uppercase tracking-widest mb-2">Chris Carroll</h1>
-          <p className="text-sm font-medium">631-521-0628 | Carroll7044@gmail.com | Boca Raton, FL 33486</p>
+          <h1 className="text-3xl font-bold uppercase tracking-widest mb-2">{CHRIS_DATA.name}</h1>
+          <p className="text-sm font-medium">{CHRIS_DATA.phone} | {CHRIS_DATA.email} | {CHRIS_DATA.location}</p>
         </div>
 
         <section className="mb-6">
@@ -351,9 +355,9 @@ const App: React.FC = () => {
             <div key={i} className="mb-4">
               <div className="flex justify-between items-baseline">
                 <p className="font-bold">{edu.institution}, Boca Raton, FL</p>
-                <p className="text-xs font-bold">{edu.date.includes('Expected') ? 'Exp. Graduation:' : 'Graduated:'} {edu.date.replace('Expected ', '')}</p>
+                <p className="text-xs font-bold">Graduated: {edu.date}</p>
               </div>
-              <p className="italic">{edu.degree}</p>
+              <p className="italic">{edu.degree}, {edu.major}</p>
               <p className="text-xs">- Cumulative GPA: {edu.gpa}</p>
               {edu.highlights?.map((h, j) => <p key={j} className="text-xs">- {h}</p>)}
             </div>
@@ -384,15 +388,10 @@ const App: React.FC = () => {
         </section>
 
         <section className="mb-6">
-          <h2 className="text-lg font-bold border-b-2 border-black mb-2">OTHER</h2>
-          <p className="text-sm font-bold underline mb-1">Technical Skills</p>
-          <ul className="text-xs list-disc ml-6 mb-4">
-            {SKILLS.filter(s => s.title !== "Soft Skills").flatMap(s => s.skills).map((sk, k) => <li key={k}>{sk}</li>)}
-          </ul>
-          <p className="text-sm font-bold underline mb-1">Soft Skills</p>
-          <ul className="text-xs list-disc ml-6">
-            {SKILLS.find(s => s.title === "Soft Skills")?.skills.map((sk, k) => <li key={k}>{sk}</li>)}
-          </ul>
+          <h2 className="text-lg font-bold border-b-2 border-black mb-2">TECHNICAL SKILLS</h2>
+          {SKILLS.map((cat) => (
+            <p key={cat.title} className="text-xs mb-1"><span className="font-bold">{cat.title}:</span> {cat.skills.join(', ')}</p>
+          ))}
         </section>
       </div>
     </div>

@@ -1,24 +1,25 @@
-
 import { ExperienceItem, EducationItem, SkillCategory } from './types';
 
 export const CHRIS_DATA = {
   name: "Chris Carroll",
   title: "Escalation Lead Engineer",
-  tagline: "Architecting Resilience. Taming Complexity. Delivering Uptime.",
+  subtitle: "Cloud Architect",
   location: "Boca Raton, FL",
   email: "Carroll7044@gmail.com",
   phone: "631-521-0628",
   linkedin: "https://www.linkedin.com/in/christopher-c-857a5722b/",
   github: "https://github.com/carrollchristopher",
-  resumeUrl: "/resume.pdf", // Placeholder for actual file path
   profileImage: new URL("./assets/profile.jpg", import.meta.url).href,
-  brandStory: "I thrive in the 'escalation' phase—where complexity meets critical impact. My career is defined by transforming fragmented infrastructure into hardened, automated, and secure hybrid systems. I don't just fix servers; I architect the operational maturity that allows businesses to scale without fear of downtime.",
-  about: "Dynamic IT engineer with deep expertise in hybrid cloud and on-prem infrastructure. Specialized in virtualization, automation, networking, and security, I deliver operational maturity through platforms like Azure, Hyper-V, VMware, and Kubernetes.",
+  bio: [
+    "Driven and results-oriented Cloud Architect with a strong foundation in cybersecurity, IT infrastructure, and enterprise solutions. Possessing a robust academic foundation in MIS Cybersecurity, I currently serve as an Escalation Lead Engineer at Dedicated IT. In this capacity, I specialize in architecting, deploying, and refining sophisticated cloud/hybrid infrastructures that drive secure operational excellence and innovation.",
+    "Complementing my infrastructure expertise is in-depth, hands-on knowledge of full stack development, application load balancing, and database management. I design and deliver end-to-end solutions across modern web frameworks, reverse proxies, and relational database systems, engineering resilient, high-availability platforms that bridge the gap between infrastructure and application layers. Underpinning this work is a mature DevOps practice. I containerize and orchestrate workloads, define environments through infrastructure as code, and automate operations with scripting and observability tooling, ensuring every deployment is repeatable, secure, and reliable.",
+    "Armed with a Master of Science in Management Information Systems from Florida Atlantic University, my focus continues to be the intersection of technology, strategy, and leadership. Passionate about cloud security, automation, DevOps, and digital transformation, I am eager to take on leadership roles that challenge me to innovate, optimize, and drive organizational success.",
+  ],
   kpis: [
     { label: "Escalation Resolve Rate", value: "98%" },
     { label: "Infrastructure Automation", value: "70%+" },
     { label: "Uptime Commitment", value: "99.9%" },
-    { label: "Certifications", value: "3+" }
+    { label: "Certifications", value: "4" }
   ]
 };
 
@@ -29,11 +30,15 @@ export const EXPERIENCE: ExperienceItem[] = [
     location: "Palm Beach Gardens, FL",
     period: "June 2025 – Present",
     bullets: [
-      "Senior Escalation Resource: Administering hybrid Azure, Hyper V, VMware, Kubernetes, Docker, and hosted data center environments.",
-      "Automation Lead: Managing provisioning and updates with PowerShell, Bash, Intune, and Azure Automation.",
-      "Network Architect: Designing Meraki, pfSense, SonicWall platforms with site-to-site VPNs, static routes, VTIs, and segmented VLANs.",
-      "Migration Specialist: Leading email and server migrations across Microsoft 365 and Google Workspace environments.",
-      "Infrastructure Ops: Configuring firewalls, switches, Unifi gear, NVR/DVR, PCI systems, and managed public/private DNS."
+      "Escalation point for infrastructure, security, and DevOps operations across a multi-client healthcare and enterprise base, driving root-cause analysis across compute, storage, virtualization, and network layers.",
+      "Engineered internal DevOps platforms with containerized Docker/Kubernetes workloads, infrastructure as code (Terraform, Ansible), and self-hosted AI tooling built on local LLMs, ML pipelines, and RAG.",
+      "Built full stack applications on Next.js, React, and Node.js with PostgreSQL/MySQL backends, owning schema design, replication, backup, and performance tuning, delivered on high-availability stacks with reverse proxying, HAProxy load balancing, TLS automation, and failover across on-prem and cloud.",
+      "Embedded DevSecOps controls in delivery pipelines (secrets management, least-privilege IAM, dependency scanning, policy-as-code) with observability through Prometheus, Grafana, synthetic monitoring, and MS Graph API alerting.",
+      "Automated endpoint provisioning, application packaging, and configuration enforcement at fleet scale with PowerShell, Bash, Python, and RMM tooling.",
+      "Architected enterprise networks spanning site-to-site VPN, multi-WAN failover, SD-WAN, BGP/OSPF, VLAN segmentation, HA firewall clustering, and zero-trust policy across mixed-vendor platforms.",
+      "Engineered virtualization, storage, and backup across VMware vSphere, Hyper-V, Azure, AWS, and Google Cloud, including HA/DRS, SAN/iSCSI, GCP project provisioning and API enablement, gsutil/CLI storage operations, and datacenter operations (server provisioning, iDRAC/iLO, RAID, hardware lifecycle, power/cooling planning).",
+      "Administered Active Directory, Entra ID, Intune, and Jamf, including replication, FSMO, DC recovery, hybrid identity sync, Conditional Access, PIM, Autopilot, and security baselines across Windows, macOS, and iOS.",
+      "Led incident response and forensics across endpoint, identity, and web layers with detection tooling on MS Graph and EDR telemetry."
     ]
   },
   {
@@ -42,11 +47,15 @@ export const EXPERIENCE: ExperienceItem[] = [
     location: "Coconut Creek, FL",
     period: "April 2024 – June 2025",
     bullets: [
-      "Virtualization Ops: Managed and deployed virtual machines, storage, and networks in Azure and Hyper-V.",
-      "Compliance Officer: Implemented and maintained device compliance policies via Microsoft Intune.",
-      "Systems Automation: Automated system and application updates using Intune and Azure Automation.",
-      "VMware Lifecycle: Managed infrastructure including ESXi hosts and virtual networks, optimizing resources in Azure.",
-      "Network Projects: Configured network equipment (firewalls, switches, Unifi) and managed DNS records."
+      "Architected and deployed Azure, GCP, and AWS infrastructure, including AWS EC2, EBS, VPC networking, subnets, route tables, NAT gateways, and hybrid connectivity to on-premises environments.",
+      "Served as the top escalation point for the Professional Services team, owning root-cause analysis on complex client incidents.",
+      "Migrated and managed datacenter infrastructure for enterprise clients across Azure, Hyper-V, KVM, and VMware ESXi, including host lifecycle, virtual networking, storage, and resource optimization.",
+      "Automated provisioning, compliance, and application deployment with AWS Systems Manager, CloudFormation, Lambda, Azure Automation, Intune, and shell scripting.",
+      "Developed and tailored Next.js web applications with React, JavaScript, HTML, and CSS for client-facing and internal tooling.",
+      "Designed and enforced security policies across Azure, AWS, GCP, Intune, and legacy Active Directory domain controllers.",
+      "Owned patch management and system upgrades across cloud and on-premises environments.",
+      "Configured network infrastructure on a project basis including firewalls, switches, wireless access points, NVR/DVR, PCI systems, and associated virtual networks.",
+      "Administered public and private DNS across multi-tenant client environments."
     ]
   },
   {
@@ -56,9 +65,9 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "July 2023 – April 2024",
     bullets: [
       "Managerial Leadership: Classified under FAU's Administrative, Managerial and Professional (AMP) positions.",
-      "Scale Operations: Conducted migrations/upgrades on campus servers impacting over 50,000+ users.",
+      "Scale Operations: Conducted migrations/upgrades on campus servers impacting over 50,000 users.",
       "Full-Stack Regulation: Coding and regulating university sites using PHP, MySQL, and HTML.",
-      "Data Security: Managed health/medical information in accordance with HIPPA compliance standards.",
+      "Data Security: Managed health/medical information in accordance with HIPAA compliance standards.",
       "Infrastructure Governance: Managed IT infrastructure and applications for all three FAU campuses."
     ]
   },
@@ -88,20 +97,28 @@ export const EXPERIENCE: ExperienceItem[] = [
 
 export const SKILLS: SkillCategory[] = [
   {
-    title: "Technical Expertise",
-    skills: ["Azure & Hyper-V", "VMware ESXi", "Kubernetes", "PowerShell & Bash", "Intune Automation", "HIPPA Compliance"]
+    title: "Cloud and Infrastructure",
+    skills: ["Azure", "AWS", "Google Cloud", "VMware vSphere", "Hyper-V", "SAN/iSCSI", "Datacenter Operations", "Disaster Recovery"]
   },
   {
-    title: "Networking & Security",
-    skills: ["pfSense & SonicWall", "Cisco Meraki", "Unifi Gear", "VLAN Segmentation", "Site-to-Site VPN", "IPSec/VTIs"]
+    title: "DevOps and Automation",
+    skills: ["Docker", "Kubernetes", "Terraform", "Ansible", "Infrastructure as Code", "Prometheus", "Grafana", "PowerShell", "Bash", "Python"]
   },
   {
-    title: "Web & Management",
-    skills: ["PHP/MySQL/HTML", "Autotask & Datto", "DNS Management", "NVR/DVR", "HPC Clusters", "Project Management"]
+    title: "Security",
+    skills: ["DevSecOps", "IAM", "Conditional Access", "PIM", "EDR", "Incident Response", "Digital Forensics", "Zero Trust", "Compliance"]
   },
   {
-    title: "Soft Skills",
-    skills: ["High EQ Teamwork", "Interpersonal Etiquette", "Technical Writing", "Strategic Escalation", "Operational Excellence"]
+    title: "Networking",
+    skills: ["BGP/OSPF", "VLAN Segmentation", "Site-to-Site VPN", "SD-WAN", "Multi-WAN Failover", "HA Firewall Clustering"]
+  },
+  {
+    title: "Application and Data",
+    skills: ["Next.js", "React", "Node.js", "PostgreSQL", "MySQL", "HAProxy", "Reverse Proxying", "TLS Automation", "High Availability"]
+  },
+  {
+    title: "Identity and Endpoint",
+    skills: ["Active Directory", "Entra ID", "Intune", "Jamf", "Group Policy", "Autopilot", "Windows/macOS/Linux Fleets"]
   }
 ];
 
@@ -109,15 +126,14 @@ export const EDUCATION: EducationItem[] = [
   {
     institution: "Florida Atlantic University",
     degree: "Master of Science, Information Technology & Management",
-    major: "Cybersecurity focus",
+    major: "MIS Cybersecurity",
     date: "May 2026",
-    gpa: "4.0",
-    highlights: ["Concentration: IT Strategy & Scalability"]
+    gpa: "3.75"
   },
   {
     institution: "Florida Atlantic University",
-    degree: "Bachelor of Science, Management Information Systems (MIS)",
-    major: "Cybersecurity focus",
+    degree: "Bachelor of Science, Management Information Systems",
+    major: "MIS Cybersecurity",
     date: "May 2023",
     gpa: "3.55",
     highlights: ["Three-time member of the Dean's List"]
@@ -125,7 +141,8 @@ export const EDUCATION: EducationItem[] = [
 ];
 
 export const CERTIFICATIONS = [
-  "CompTIA Security+ Certification",
-  "CompTIA A+ Core 1 Certification",
-  "CompTIA A+ Core 2 Certification"
+  "CompTIA A+",
+  "CompTIA Security+",
+  "Cisco Network Security: Secure Routing and Switching",
+  "Microsoft Security Essentials: Professional"
 ];
