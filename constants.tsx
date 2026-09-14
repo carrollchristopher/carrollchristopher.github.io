@@ -20,7 +20,7 @@ export const CHRIS_DATA = {
   ],
   kpis: [
     { label: "Years in IT", value: "4+" },
-    { label: "Users Supported", value: "50K+" },
+    { label: "Users Supported", value: "75K+" },
     { label: "Cloud Platforms", value: "3" },
     { label: "Certifications", value: "4" }
   ]
