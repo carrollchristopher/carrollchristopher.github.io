@@ -10,7 +10,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.98",
     "lucide-react": "^0.563.0",
     "react": "^19.3.0",

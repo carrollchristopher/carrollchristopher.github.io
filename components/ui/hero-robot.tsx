@@ -1,24 +1,28 @@
-import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Application } from '@splinetool/runtime';
-
-const Spline = lazy(() => import('@splinetool/react-spline'));
 
 // The robot is shown in three layers that hand off without a visible change:
 // 1. A poster, which is the exact first frame of the idle loop.
 // 2. A 12-second idle loop recorded from the scene. It starts once the page has loaded and
 //    plays off the main thread, so it keeps moving while anything else is busy.
-// 3. The live Spline scene, which adds cursor tracking. It loads in the background when the
-//    browser is idle, only on large pointer screens with hardware WebGL.
+// 3. The live Spline scene, which adds cursor tracking. On large pointer screens with hardware
+//    WebGL, the runtime, the scene file, and its WASM module start downloading in parallel as
+//    soon as the page hydrates.
 // The scene plays an opening camera move whenever it starts or resumes, so each time it does,
 // the loop is shown on top and the scene only crossfades in once its camera has come to rest.
 // The scene is stopped only after the hero has been out of view for a while.
 // With reduced motion or data saving requested, only the poster is shown.
 
 const CROSSFADE_MS = 500;
+const WASM_PATH = '/spline';
 // Settle detection counts rendered frames, so a long main-thread block cannot end it early.
 const CAMERA_STILL_FRAMES = 18;
 const CAMERA_NEVER_MOVED_FRAMES = 90;
 const CAMERA_MAX_FRAMES = 420;
+// Where this scene's camera comes to rest after its opening move. The last few percent of the
+// move is too slow to see, so the handoff can start once the camera is this close.
+const CAMERA_REST = { y: 147, z: 1000 };
+const CAMERA_REST_TOLERANCE = { y: 6, z: 28 };
 // Short trips away from the hero keep the scene running, so coming back needs no handoff.
 const OFFSCREEN_STOP_DELAY_MS = 15000;
 
@@ -27,22 +31,6 @@ type IdleWindow = Window & {
   requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
   cancelIdleCallback?: (id: number) => void;
 };
-
-class SceneErrorBoundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
-  state = { failed: false };
-
-  static getDerivedStateFromError() {
-    return { failed: true };
-  }
-
-  componentDidCatch() {
-    this.props.onError();
-  }
-
-  render() {
-    return this.state.failed ? null : this.props.children;
-  }
-}
 
 function wantsStaticMedia() {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -86,6 +74,7 @@ interface HeroRobotProps {
 export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, className = '' }: HeroRobotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const appRef = useRef<Application | null>(null);
   const loopActiveRef = useRef(false);
   const inViewRef = useRef(true);
@@ -93,7 +82,6 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
   const settleFrameRef = useRef(0);
   const stopTimerRef = useRef(0);
   const stoppedRef = useRef(false);
-  const [loadScene, setLoadScene] = useState(false);
   const [sceneVisible, setSceneVisible] = useState(false);
   const [instant, setInstant] = useState(false);
 
@@ -126,6 +114,10 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
     let moved = false;
     let stillFrames = 0;
     let frames = 0;
+    const nearRest = () =>
+      Boolean(camera) &&
+      Math.abs(camera!.position.z - CAMERA_REST.z) < CAMERA_REST_TOLERANCE.z &&
+      Math.abs(camera!.position.y - CAMERA_REST.y) < CAMERA_REST_TOLERANCE.y;
     const tick = () => {
       frames += 1;
       const current = pose();
@@ -136,7 +128,7 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
       } else {
         stillFrames += 1;
       }
-      const settled = (moved && stillFrames >= CAMERA_STILL_FRAMES) || (!moved && frames >= CAMERA_NEVER_MOVED_FRAMES) || frames >= CAMERA_MAX_FRAMES;
+      const settled = (moved && (nearRest() || stillFrames >= CAMERA_STILL_FRAMES)) || (!moved && frames >= CAMERA_NEVER_MOVED_FRAMES) || frames >= CAMERA_MAX_FRAMES;
       if (!settled) {
         settleFrameRef.current = requestAnimationFrame(tick);
         return;
@@ -161,15 +153,39 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
     }, 1000);
   }, []);
 
-  // Fetch the live scene in the background on capable desktops.
+  // Load the live scene on capable desktops. Everything it needs downloads in parallel.
   useEffect(() => {
+    const canvas = canvasRef.current;
     const capable = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches;
     const memory = (navigator as NavigatorHints).deviceMemory;
-    if (!capable || wantsStaticMedia() || (memory !== undefined && memory < 4)) return;
-    return afterLoadWhenIdle(() => {
-      if (hasHardwareWebGL()) setLoadScene(true);
-    }, 3000);
-  }, []);
+    if (!canvas || !capable || wantsStaticMedia() || (memory !== undefined && memory < 4) || !hasHardwareWebGL()) return;
+    let disposed = false;
+    let app: Application | null = null;
+    // Warms the HTTP cache for the module the runtime fetches while it starts.
+    fetch(`${WASM_PATH}/process.wasm`).catch(() => undefined);
+    Promise.all([
+      import('@splinetool/runtime'),
+      fetch(scene).then((response) => {
+        if (!response.ok) throw new Error(`Scene request failed with ${response.status}`);
+        return response.arrayBuffer();
+      }),
+    ])
+      .then(async ([{ Application: SplineApplication }, sceneData]) => {
+        if (disposed) return;
+        app = new SplineApplication(canvas, { wasmPath: WASM_PATH });
+        await app.start(sceneData);
+        if (disposed) return;
+        handleSceneLoad(app);
+      })
+      .catch(() => {
+        if (!disposed) handleSceneError();
+      });
+    return () => {
+      disposed = true;
+      appRef.current = null;
+      app?.dispose();
+    };
+  }, [scene]);
 
   // Off screen: pause the loop at once, and stop the scene after a delay, putting the loop back
   // on top without a transition. Back on screen after a stop: resume the scene and let its
@@ -285,18 +301,12 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
         <source src={videoWebm} type="video/webm; codecs=vp9" />
         <source src={videoMp4} type="video/mp4" />
       </video>
-      {loadScene && (
-        <SceneErrorBoundary onError={handleSceneError}>
-          <Suspense fallback={null}>
-            <Spline
-              scene={scene}
-              onLoad={handleSceneLoad}
-              className={`absolute inset-0 h-full w-full transition-opacity ease-out ${sceneVisible ? 'opacity-100' : 'opacity-0'}`}
-              style={{ transitionDuration }}
-            />
-          </Suspense>
-        </SceneErrorBoundary>
-      )}
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        className={`absolute inset-0 h-full w-full transition-opacity ease-out ${sceneVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        style={{ transitionDuration }}
+      />
     </div>
   );
 }
