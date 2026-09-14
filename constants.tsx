@@ -19,9 +19,9 @@ export const CHRIS_DATA = {
     "Armed with a Master of Science in Management Information Systems from Florida Atlantic University, my focus continues to be the intersection of technology, strategy, and leadership. Passionate about cloud security, automation, DevOps, and digital transformation, I am eager to take on leadership roles that challenge me to innovate, optimize, and drive organizational success.",
   ],
   kpis: [
-    { label: "Escalation Resolve Rate", value: "98%" },
-    { label: "Infrastructure Automation", value: "70%+" },
-    { label: "Uptime Commitment", value: "99.9%" },
+    { label: "Years in IT", value: "4+" },
+    { label: "Users Supported", value: "50K+" },
+    { label: "Cloud Platforms", value: "3" },
     { label: "Certifications", value: "4" }
   ]
 };
@@ -131,7 +131,8 @@ export const EDUCATION: EducationItem[] = [
     degree: "Master of Science, Information Technology & Management",
     major: "MIS Cybersecurity",
     date: "May 2026",
-    gpa: "3.75"
+    gpa: "3.75",
+    highlights: ["Six-time member of the Dean's List"]
   },
   {
     institution: "Florida Atlantic University",
