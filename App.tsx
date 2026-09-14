@@ -311,9 +311,9 @@ const App: React.FC = () => {
                     alt={CHRIS_DATA.name}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-700"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" aria-hidden="true"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" aria-hidden="true"></div>
                   <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3.5 p-4 rounded-md border border-white/10 bg-slate-950/85">
                     <div className="w-10 h-10 shrink-0 bg-blue-600 rounded flex items-center justify-center text-white" aria-hidden="true"><Compass size={20} className="animate-spin-slow" /></div>
                     <div className="text-left">
