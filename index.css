@@ -72,6 +72,112 @@
   color: #60a5fa;
 }
 
+/* ----- Hero robot ----- */
+.robot-loop {
+  transition: opacity 500ms ease;
+}
+.robot-loader {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 450ms ease, transform 450ms ease;
+}
+.robot-canvas {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease-out;
+}
+.robot-live .robot-loop {
+  opacity: 0;
+}
+.robot-live .robot-loader {
+  opacity: 1;
+}
+.robot[data-phase='entering'] .robot-loader,
+.robot[data-phase='live'] .robot-loader {
+  opacity: 0;
+  transform: scale(0.94);
+}
+.robot[data-phase='live'] .robot-canvas {
+  opacity: 1;
+  pointer-events: auto;
+}
+.robot[data-phase='fallback'] .robot-loop {
+  opacity: 1;
+}
+.robot[data-phase='fallback'] .robot-loader {
+  opacity: 0;
+}
+
+.robot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(96, 165, 250, 0.16);
+}
+.robot-ring-outer {
+  border-top-color: #60a5fa;
+  animation: robot-spin 1.4s linear infinite;
+}
+.robot-ring-inner {
+  inset: 14px;
+  border-color: rgba(34, 211, 238, 0.12);
+  border-bottom-color: #22d3ee;
+  animation: robot-spin 2.2s linear infinite reverse;
+}
+.robot-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: #60a5fa;
+  box-shadow: 0 0 18px 4px rgba(96, 165, 250, 0.5);
+  animation: robot-pulse 1.4s ease-in-out infinite;
+}
+.robot-scan {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 49.6%, rgba(96, 165, 250, 0.3) 50%, transparent 50.4%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 12%, #000 40%, #000 60%, transparent 88%);
+  mask-image: linear-gradient(90deg, transparent 12%, #000 40%, #000 60%, transparent 88%);
+  animation: robot-scan 3.2s ease-in-out infinite;
+}
+.robot-progress-start {
+  animation: robot-progress-start 1.2s ease-out;
+}
+
+@keyframes robot-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes robot-pulse {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+@keyframes robot-scan {
+  0%,
+  100% {
+    transform: translateY(-38%);
+  }
+  50% {
+    transform: translateY(38%);
+  }
+}
+@keyframes robot-progress-start {
+  from {
+    transform: scaleX(0.04);
+  }
+}
+
 .text-shimmer {
   background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd, #3b82f6);
   background-size: 200% auto;

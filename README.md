@@ -40,6 +40,6 @@ The site deploys to GitHub Pages through GitHub Actions. Every push to `main` ty
 
 ## Performance Notes
 
-- The hero robot starts as a poster, switches to a 12-second idle loop video after load, and on desktops with hardware WebGL crossfades to the live Spline scene once it has loaded in the background. Everything pauses when scrolled out of view.
+- On desktops with hardware WebGL, the hero shows a loader while the Spline runtime, scene, and WASM module load in parallel, then the robot enters with its camera move. Phones and other devices get a poster and a recorded idle loop. The scene stops after the hero has been out of view for a while.
 - The aurora background is plain WebGL, capped at 30 fps, drawn at reduced resolution, and paused in hidden tabs. Devices without hardware-accelerated WebGL keep a static CSS gradient.
 - Fonts and images are self-hosted: one variable WOFF2 subset and WebP images.
