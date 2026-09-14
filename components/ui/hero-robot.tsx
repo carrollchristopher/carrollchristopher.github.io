@@ -17,7 +17,7 @@ import type { Application } from '@splinetool/runtime';
 const WASM_PATH = '/spline';
 const LOADER_EXIT_MS = 450;
 const OFFSCREEN_STOP_DELAY_MS = 15000;
-const STAGES = ['Loading model', 'Compiling shaders', 'Online'];
+const LOADER_LABEL = 'Waking up your robot friend';
 const STAGE_PROGRESS = [0.55, 0.92, 1];
 const STAGE_DURATION_MS = [1200, 6000, 300];
 
@@ -225,16 +225,20 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
       </div>
 
       <div className="robot-loader absolute inset-0 flex flex-col items-center justify-center" aria-hidden="true">
-        <div className="robot-scan" />
-        <div className="relative h-24 w-24">
-          <span className="robot-ring robot-ring-outer" />
-          <span className="robot-ring robot-ring-inner" />
-          <span className="robot-core" />
+        <div className="robot-buddy">
+          <span className="robot-buddy-antenna" />
+          <div className="robot-buddy-head">
+            <div className="robot-buddy-eyes">
+              <span className="robot-buddy-eye" />
+              <span className="robot-buddy-eye" />
+            </div>
+          </div>
         </div>
-        <p className="mt-8 text-[11px] font-bold uppercase tracking-[0.3em] text-blue-300/90">{STAGES[stage]}</p>
-        <div className="mt-4 h-px w-44 overflow-hidden bg-white/10">
+        <span className="robot-buddy-shadow" />
+        <p className="mt-7 text-sm font-semibold text-slate-200">{LOADER_LABEL}</p>
+        <div className="mt-3 h-1 w-40 overflow-hidden rounded-full bg-white/10">
           <div
-            className={`h-full w-full origin-left bg-blue-400 transition-transform ease-out ${stage === 0 ? 'robot-progress-start' : ''}`}
+            className={`h-full w-full origin-left rounded-full bg-gradient-to-r from-blue-500 to-cyan-300 transition-transform ease-out ${stage === 0 ? 'robot-progress-start' : ''}`}
             style={{ transform: `scaleX(${STAGE_PROGRESS[stage]})`, transitionDuration: `${STAGE_DURATION_MS[stage]}ms` }}
           />
         </div>
