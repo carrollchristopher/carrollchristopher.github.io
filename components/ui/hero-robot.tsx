@@ -5,7 +5,8 @@ import type { Application } from '@splinetool/runtime';
 // its WASM module download in parallel and the scene is built. The loader only animates transform
 // and opacity, so it stays smooth while the main thread is busy building the scene. Once the scene
 // is ready it is paused until the page is idle, then the loader exits and the scene plays its
-// opening camera move as the entrance, with cursor tracking from the first frame.
+// opening camera move as the entrance, with cursor tracking from the first frame. Tracking listens
+// on the window, so the robot follows the cursor anywhere on the page while it is in view.
 //
 // Everywhere else (phones, tablets, software rendering, or a failed load): a poster that is the
 // first frame of a recorded idle loop, and the loop itself once the page has loaded.
@@ -133,6 +134,8 @@ export function HeroRobot({ scene, poster, posterSrcSet, videoWebm, videoMp4, cl
         app = new SplineApplication(canvas, { wasmPath: WASM_PATH });
         await app.start(sceneData);
         if (disposed) return;
+        // Track the cursor anywhere on the page, not only over the canvas.
+        app.setGlobalEvents(true);
         // Hold the scene until the page is quiet, so the entrance plays without hitches.
         // Playing it again later restarts the opening camera move from the beginning.
         app.stop();
