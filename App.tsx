@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   Mail, Phone, Download, MapPin, Linkedin, Github,
-  ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Compass
+  ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Compass, Users
 } from 'lucide-react';
 import { HeroRobot } from '@/components/ui/hero-robot';
 import { Spotlight } from '@/components/ui/spotlight';
-import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS } from './constants';
+import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
 import heroPoster2x from './assets/hero-poster-2x.webp';
 import heroRobotWebm from './assets/hero-robot.webm';
@@ -175,7 +175,7 @@ const App: React.FC = () => {
           <a href="#hero" className="flex items-center gap-3.5 group">
             <span className="w-10 h-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-black text-base" aria-hidden="true">CC</span>
             <span className="text-left">
-              <span className="block text-lg font-bold tracking-tight leading-tight">{CHRIS_DATA.name}</span>
+              <span className="block text-base sm:text-lg font-bold tracking-tight leading-tight">{CHRIS_DATA.name}</span>
               <span className="block text-[10px] uppercase font-bold tracking-[0.18em] text-blue-400">{CHRIS_DATA.title}</span>
             </span>
           </a>
@@ -393,6 +393,14 @@ const App: React.FC = () => {
                 </div>
               ))}
             </div>
+            <div className="panel rounded-lg mt-5 lg:mt-6 p-7 text-left">
+              <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">Working Style</h3>
+              <ul className="flex flex-wrap gap-2">
+                {WORKING_STYLE.map((trait) => (
+                  <li key={trait} className="px-2.5 py-1.5 rounded border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300">{trait}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -436,6 +444,24 @@ const App: React.FC = () => {
                     </li>
                   ))}
                 </ul>
+
+                <div className="flex items-center gap-4 mt-14 mb-10 lg:mb-12">
+                  <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Users size={24} /></div>
+                  <h2 className="text-3xl sm:text-5xl font-black tracking-tight">Involvement</h2>
+                </div>
+                <div className="panel rounded-lg p-7">
+                  <span className="inline-block px-2.5 py-1 rounded border border-blue-500/25 bg-blue-500/10 text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-4">{INVOLVEMENT.period}</span>
+                  <h3 className="text-2xl font-black tracking-tight mb-1.5">{INVOLVEMENT.role}</h3>
+                  <p className="text-base font-semibold text-slate-400 mb-5">{INVOLVEMENT.organization} / {INVOLVEMENT.location}</p>
+                  <ul className="space-y-3.5">
+                    {INVOLVEMENT.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-3 text-[0.95rem] text-slate-300 leading-relaxed">
+                        <ChevronRight size={16} className="mt-1 text-blue-500 shrink-0" aria-hidden="true" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

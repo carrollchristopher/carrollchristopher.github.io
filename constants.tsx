@@ -3,7 +3,7 @@ import profileImage from './assets/profile.webp';
 import profileImageSmall from './assets/profile-400.webp';
 
 export const CHRIS_DATA = {
-  name: "Chris Carroll",
+  name: "Christopher Carroll",
   title: "Escalation Lead Engineer",
   subtitle: "Cloud Architect",
   location: "Boca Raton, FL",
@@ -87,13 +87,24 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
   {
     company: "ITsavvy",
-    role: "NOC Intern",
+    role: "Network Operations Center Intern",
     location: "Hauppauge, NY",
     period: "May 2022 – July 2022",
     bullets: [
       "Client Support: Assisted IT clientele with service requests using Autotask, Datto, and FortiLAN systems.",
       "IoT Integration: Built and coded Raspberry Pi devices for specific client deployments.",
       "Infrastructure Maintenance: Dismantled and reinstalled network servers and resolved requests via TeamViewer/OpenSSH."
+    ]
+  },
+  {
+    company: "Magnetic Charging",
+    role: "Founder",
+    location: "East Islip, NY",
+    period: "September 2020 – December 2021",
+    bullets: [
+      "Commerce Platform: Built and launched a self-hosted e-commerce application with an integrated storefront, checkout, and supplier fulfillment.",
+      "Growth: Ran paid social campaigns across Facebook and Instagram, owning targeting, creative, and conversion tracking.",
+      "Operations: Implemented multi-currency checkout for international orders and established an end-to-end drop-shipping inventory pipeline."
     ]
   }
 ];
@@ -145,8 +156,28 @@ export const EDUCATION: EducationItem[] = [
 ];
 
 export const CERTIFICATIONS = [
-  "CompTIA A+",
+  "CompTIA A+ (Core 1 and Core 2)",
   "CompTIA Security+",
   "Cisco Network Security: Secure Routing and Switching",
   "Microsoft Security Essentials: Professional"
+];
+
+export const INVOLVEMENT = {
+  organization: "Pi Kappa Alpha Fraternity",
+  role: "Scholarship Chair",
+  location: "Boca Raton, FL",
+  period: "January 2022 – January 2023",
+  bullets: [
+    "Organized the alumni dinners and retreats where chapter members are awarded scholarships.",
+    "Coordinated study sessions across the Greek community for members carrying a sub 3.0 GPA."
+  ]
+};
+
+export const WORKING_STYLE = [
+  "Client-facing advisory",
+  "Technical risk translation",
+  "Executive communication",
+  "Incident reports and runbooks",
+  "Team enablement",
+  "Cross-functional collaboration"
 ];

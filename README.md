@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/og.jpg" alt="Chris Carroll, Escalation Lead Engineer and Cloud Architect" width="100%" />
+  <img src="public/og.jpg" alt="Christopher Carroll, Escalation Lead Engineer and Cloud Architect" width="100%" />
 </div>
 
 # Christopher Carroll | Personal Site
