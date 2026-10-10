@@ -24,7 +24,7 @@ const NAV_ITEMS = [
 const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)];
 const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 const MAIL_HREF = `mailto:${CHRIS_DATA.email}`;
-const TEL_HREF = `tel:+1${CHRIS_DATA.phone.replace(/\D/g, '')}`;
+const TEL_HREF = `tel:+${CHRIS_DATA.phone.replace(/\D/g, '')}`;
 const RESUME_HREF = '/Resume-Christopher-Carroll.pdf';
 const RESUME_FILENAME = 'Resume - Christopher Carroll.pdf';
 

@@ -8,7 +8,7 @@ export const CHRIS_DATA = {
   subtitle: "Cloud Architect",
   location: "Boca Raton, FL",
   email: "Carroll7044@gmail.com",
-  phone: "631-521-0628",
+  phone: "+1 (631) 521-0628",
   linkedin: "https://www.linkedin.com/in/christopher-c-857a5722b/",
   github: "https://github.com/carrollchristopher",
   profileImage,
