@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   Mail, Phone, Download, MapPin, Linkedin, Github,
-  ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Compass, Users
+  ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Users
 } from 'lucide-react';
 import { HeroRobot } from '@/components/ui/hero-robot';
 import { ExperienceTimeline } from '@/components/ui/experience-timeline';
 import { SpotlightGroup } from '@/components/ui/spotlight-group';
 import { CountUp } from '@/components/ui/count-up';
 import { SectionNav } from '@/components/ui/section-nav';
+import { ProfileCard } from '@/components/ui/profile-card';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -296,7 +297,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-20">
               <div className="w-full max-w-sm lg:w-[400px] lg:max-w-none shrink-0">
-                <div className="group relative aspect-square w-full overflow-hidden rounded-lg border border-white/10 bg-slate-900">
+                <ProfileCard>
                   <img
                     src={CHRIS_DATA.profileImage}
                     srcSet={`${CHRIS_DATA.profileImageSmall} 400w, ${CHRIS_DATA.profileImage} 800w`}
@@ -308,15 +309,17 @@ const App: React.FC = () => {
                     decoding="async"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" aria-hidden="true"></div>
-                  <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3.5 p-4 rounded-md border border-white/10 bg-slate-950/85">
-                    <div className="w-10 h-10 shrink-0 bg-blue-600 rounded flex items-center justify-center text-white" aria-hidden="true"><Compass size={20} className="animate-spin-slow" /></div>
-                    <div className="text-left">
-                      <p className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.18em]">Active Stack</p>
-                      <p className="text-sm font-bold">Hybrid Cloud &amp; Security</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" aria-hidden="true"></div>
+                  <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 p-4 rounded-md border border-white/10 bg-slate-950/85">
+                    <div className="min-w-0 text-left">
+                      <p className="text-sm font-bold text-white">{CHRIS_DATA.name}</p>
+                      <p className="mt-0.5 text-[10px] font-bold text-blue-400 uppercase tracking-[0.18em]">Hybrid Cloud &amp; Security</p>
                     </div>
+                    <a href="#contact" className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white transition-colors">
+                      <Mail size={14} aria-hidden="true" /> Contact
+                    </a>
                   </div>
-                </div>
+                </ProfileCard>
               </div>
 
               <div className="flex-1 min-w-0 text-left">
