@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import type { ExperienceItem } from '../../types';
+
+const PREVIEW_COUNT = 4;
 
 // "Label: detail" bullets render the label as a lead-in.
 function splitLead(text: string) {
@@ -9,6 +11,10 @@ function splitLead(text: string) {
 }
 
 function TimelineEntry({ item }: { item: ExperienceItem }) {
+  const [expanded, setExpanded] = useState(false);
+  const listId = useId();
+  // Hiding a single bullet behind a toggle is not worth the click.
+  const hidden = item.bullets.length > PREVIEW_COUNT + 1 ? item.bullets.length - PREVIEW_COUNT : 0;
 
   return (
     <li className="timeline-entry relative grid gap-x-14 pb-14 pl-9 last:pb-0 lg:grid-cols-[300px_minmax(0,1fr)] lg:pl-0">
@@ -20,7 +26,7 @@ function TimelineEntry({ item }: { item: ExperienceItem }) {
       </div>
       <div className="min-w-0">
         <h3 className="text-2xl sm:text-[1.75rem] font-black tracking-tight mb-5">{item.role}</h3>
-        <ul className="space-y-3.5">
+        <ul id={listId} className="timeline-bullets space-y-3.5" data-collapsed={!expanded && hidden > 0 ? '' : undefined}>
           {item.bullets.map((bullet) => {
             const { lead, rest } = splitLead(bullet);
             return (
@@ -34,6 +40,17 @@ function TimelineEntry({ item }: { item: ExperienceItem }) {
             );
           })}
         </ul>
+        {hidden > 0 && (
+          <button
+            type="button"
+            className="timeline-toggle mt-5 inline-flex items-center gap-2 px-3.5 py-2 rounded-md border border-white/10 text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:border-white/25 transition-colors"
+            aria-expanded={expanded}
+            aria-controls={listId}
+            onClick={() => setExpanded((open) => !open)}
+          >
+            {expanded ? 'Show fewer' : `Show ${hidden} more`}
+          </button>
+        )}
       </div>
     </li>
   );
