@@ -4,6 +4,7 @@ import {
   ChevronRight, ChevronUp, Shield, Menu, X, Award, BookOpen, Zap, Compass, Users
 } from 'lucide-react';
 import { HeroRobot } from '@/components/ui/hero-robot';
+import { ExperienceTimeline } from '@/components/ui/experience-timeline';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -352,25 +353,7 @@ const App: React.FC = () => {
               <p className="eyebrow">Impact Analysis</p>
               <h2 id="experience-heading" className="text-5xl lg:text-7xl font-black tracking-tighter">Professional Velocity.</h2>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
-              {EXPERIENCE.map((exp) => (
-                <article key={`${exp.company}-${exp.period}`} className="panel panel-hover rounded-lg p-7 sm:p-9 text-left">
-                  <div className="mb-7 pb-6 border-b border-white/10">
-                    <span className="inline-block px-2.5 py-1 rounded border border-blue-500/25 bg-blue-500/10 text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-4">{exp.period}</span>
-                    <h3 className="text-2xl sm:text-[1.75rem] font-black tracking-tight mb-1.5">{exp.role}</h3>
-                    <p className="text-base sm:text-lg font-semibold text-slate-400">{exp.company} / {exp.location}</p>
-                  </div>
-                  <ul className="space-y-3.5">
-                    {exp.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-3 text-[0.95rem] text-slate-300 leading-relaxed">
-                        <ChevronRight size={16} className="mt-1 text-blue-500 shrink-0" aria-hidden="true" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
+            <ExperienceTimeline items={EXPERIENCE} />
           </div>
         </section>
 
