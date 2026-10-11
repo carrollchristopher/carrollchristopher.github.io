@@ -7,6 +7,7 @@ import { HeroRobot } from '@/components/ui/hero-robot';
 import { ExperienceTimeline } from '@/components/ui/experience-timeline';
 import { SpotlightGroup } from '@/components/ui/spotlight-group';
 import { CountUp } from '@/components/ui/count-up';
+import { SectionNav } from '@/components/ui/section-nav';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -184,16 +185,7 @@ const App: React.FC = () => {
           </a>
 
           <div className="hidden lg:flex items-center gap-1">
-            {NAV_ITEMS.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                aria-current={activeSection === id ? 'location' : undefined}
-                className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors ${activeSection === id ? 'text-white bg-white/[0.07]' : 'text-slate-400 hover:text-white'}`}
-              >
-                {label}
-              </a>
-            ))}
+            <SectionNav items={NAV_ITEMS} active={activeSection} />
             <div className="w-px h-6 bg-white/10 mx-4" aria-hidden="true" />
             <a
               href={RESUME_HREF}
