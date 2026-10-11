@@ -63,6 +63,40 @@
   border-color: rgba(96, 165, 250, 0.35);
 }
 
+/* Pointer light for panels inside a SpotlightGroup: a soft fill plus a lit edge. */
+.spot {
+  position: relative;
+  isolation: isolate;
+}
+.spot::before,
+.spot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.spot::before {
+  z-index: -1;
+  background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(96, 165, 250, 0.1), transparent 45%);
+}
+.spot::after {
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(147, 197, 253, 0.6), transparent 45%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot-group:hover .spot::before,
+  .spot-group:hover .spot::after {
+    opacity: 1;
+  }
+}
+
 .eyebrow {
   margin-bottom: 1rem;
   font-size: 11px;

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { HeroRobot } from '@/components/ui/hero-robot';
 import { ExperienceTimeline } from '@/components/ui/experience-timeline';
+import { SpotlightGroup } from '@/components/ui/spotlight-group';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -364,26 +365,28 @@ const App: React.FC = () => {
               <p className="eyebrow">Capability Matrix</p>
               <h2 id="skills-heading" className="text-5xl lg:text-7xl font-black tracking-tighter">Engineering Arsenal.</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-              {SKILLS.map((cat) => (
-                <div key={cat.title} className="panel panel-hover rounded-lg p-7 text-left">
-                  <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">{cat.title}</h3>
-                  <ul className="flex flex-wrap gap-2">
-                    {cat.skills.map((skill) => (
-                      <li key={skill} className="px-2.5 py-1.5 rounded border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300">{skill}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <div className="panel rounded-lg mt-5 lg:mt-6 p-7 text-left">
-              <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">Working Style</h3>
-              <ul className="flex flex-wrap gap-2">
-                {WORKING_STYLE.map((trait) => (
-                  <li key={trait} className="px-2.5 py-1.5 rounded border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300">{trait}</li>
+            <SpotlightGroup>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+                {SKILLS.map((cat) => (
+                  <div key={cat.title} className="spot panel panel-hover rounded-lg p-7 text-left">
+                    <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">{cat.title}</h3>
+                    <ul className="flex flex-wrap gap-2">
+                      {cat.skills.map((skill) => (
+                        <li key={skill} className="px-2.5 py-1.5 rounded border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300">{skill}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
-            </div>
+              </div>
+              <div className="spot panel rounded-lg mt-5 lg:mt-6 p-7 text-left">
+                <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">Working Style</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {WORKING_STYLE.map((trait) => (
+                    <li key={trait} className="px-2.5 py-1.5 rounded border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300">{trait}</li>
+                  ))}
+                </ul>
+              </div>
+            </SpotlightGroup>
           </div>
         </section>
 
