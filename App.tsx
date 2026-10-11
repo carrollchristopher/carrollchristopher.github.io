@@ -334,14 +334,16 @@ const App: React.FC = () => {
                     <p key={i}>{paragraph}</p>
                   ))}
                 </div>
-                <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3">
-                  {CHRIS_DATA.kpis.map((kpi) => (
-                    <div key={kpi.label} className="panel rounded-lg px-4 py-5 text-center flex flex-col-reverse">
-                      <dt className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mt-2 leading-snug">{kpi.label}</dt>
-                      <dd className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight [text-shadow:0_0_24px_rgba(96,165,250,0.35)]">{kpi.value}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <SpotlightGroup>
+                  <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3">
+                    {CHRIS_DATA.kpis.map((kpi) => (
+                      <div key={kpi.label} className="spot panel rounded-lg px-4 py-5 text-center flex flex-col-reverse">
+                        <dt className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mt-2 leading-snug">{kpi.label}</dt>
+                        <dd className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight [text-shadow:0_0_24px_rgba(96,165,250,0.35)]">{kpi.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </SpotlightGroup>
               </div>
             </div>
           </div>
@@ -417,14 +419,14 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className="lg:w-2/5 text-left">
+              <SpotlightGroup className="lg:w-2/5 text-left">
                 <div className="flex items-center gap-4 mb-10 lg:mb-12">
                   <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Award size={24} /></div>
                   <h2 className="text-3xl sm:text-5xl font-black tracking-tight">Certifications</h2>
                 </div>
                 <ul className="grid gap-3">
                   {CERTIFICATIONS.map((cert) => (
-                    <li key={cert} className="panel panel-hover rounded-lg px-5 py-4 flex items-center gap-4">
+                    <li key={cert} className="spot panel panel-hover rounded-lg px-5 py-4 flex items-center gap-4">
                       <Shield className="text-blue-500 shrink-0" size={22} aria-hidden="true" />
                       <span className="text-base sm:text-lg font-bold text-slate-100">{cert}</span>
                     </li>
@@ -435,7 +437,7 @@ const App: React.FC = () => {
                   <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Users size={24} /></div>
                   <h2 className="text-3xl sm:text-5xl font-black tracking-tight">Involvement</h2>
                 </div>
-                <div className="panel rounded-lg p-7">
+                <div className="spot panel rounded-lg p-7">
                   <span className="inline-block px-2.5 py-1 rounded border border-blue-500/25 bg-blue-500/10 text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-4">{INVOLVEMENT.period}</span>
                   <h3 className="text-2xl font-black tracking-tight mb-1.5">{INVOLVEMENT.role}</h3>
                   <p className="text-base font-semibold text-slate-400 mb-5">{INVOLVEMENT.organization} / {INVOLVEMENT.location}</p>
@@ -448,7 +450,7 @@ const App: React.FC = () => {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </SpotlightGroup>
             </div>
           </div>
         </section>
