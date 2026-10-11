@@ -326,7 +326,7 @@ const App: React.FC = () => {
 
               <div className="flex-1 min-w-0 text-left">
                 <p className="eyebrow">The Brand Story</p>
-                <h2 id="about-heading" className="text-4xl lg:text-6xl font-black tracking-tighter mb-8">Taming Complexity.</h2>
+                <h2 id="about-heading" className="text-4xl lg:text-6xl font-bold tracking-tighter mb-8">Taming Complexity.</h2>
                 <div className="max-w-3xl space-y-5 text-[1.0625rem] leading-8 text-slate-300">
                   {CHRIS_DATA.bio.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
@@ -352,7 +352,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-14 lg:mb-20">
               <p className="eyebrow">Impact Analysis</p>
-              <h2 id="experience-heading" className="text-5xl lg:text-7xl font-black tracking-tighter">Professional Velocity.</h2>
+              <h2 id="experience-heading" className="text-5xl lg:text-7xl font-bold tracking-tighter">Professional Velocity.</h2>
             </div>
             <ExperienceTimeline items={EXPERIENCE} />
           </div>
@@ -363,7 +363,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-12 lg:mb-14">
               <p className="eyebrow">Capability Matrix</p>
-              <h2 id="skills-heading" className="text-5xl lg:text-7xl font-black tracking-tighter">Engineering Arsenal.</h2>
+              <h2 id="skills-heading" className="text-5xl lg:text-7xl font-bold tracking-tighter">Engineering Arsenal.</h2>
             </div>
           </div>
           <PlatformMarquee rows={PLATFORMS} />
@@ -400,7 +400,7 @@ const App: React.FC = () => {
               <div className="lg:w-3/5 text-left">
                 <div className="flex items-center gap-4 mb-10 lg:mb-12">
                   <div className="shrink-0 w-12 h-12 bg-blue-600 rounded-md flex items-center justify-center text-white" aria-hidden="true"><BookOpen size={24} /></div>
-                  <h2 id="education-heading" className="text-3xl sm:text-5xl font-black tracking-tight">Education Baseline</h2>
+                  <h2 id="education-heading" className="text-3xl sm:text-5xl font-bold tracking-tight">Education Baseline</h2>
                 </div>
                 <div className="space-y-10">
                   {EDUCATION.map((edu) => (
@@ -423,7 +423,7 @@ const App: React.FC = () => {
               <SpotlightGroup className="lg:w-2/5 text-left">
                 <div className="flex items-center gap-4 mb-10 lg:mb-12">
                   <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Award size={24} /></div>
-                  <h2 className="text-3xl sm:text-5xl font-black tracking-tight">Certifications</h2>
+                  <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">Certifications</h2>
                 </div>
                 <ul className="grid gap-3">
                   {CERTIFICATIONS.map((cert) => (
@@ -436,7 +436,7 @@ const App: React.FC = () => {
 
                 <div className="flex items-center gap-4 mt-14 mb-10 lg:mb-12">
                   <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Users size={24} /></div>
-                  <h2 className="text-3xl sm:text-5xl font-black tracking-tight">Involvement</h2>
+                  <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">Involvement</h2>
                 </div>
                 <div className="spot panel rounded-lg p-7">
                   <span className="inline-block px-2.5 py-1 rounded border border-blue-500/25 bg-blue-500/10 text-blue-300 text-[11px] font-bold uppercase tracking-wider mb-4">{INVOLVEMENT.period}</span>
@@ -460,7 +460,7 @@ const App: React.FC = () => {
         <section id="contact" aria-labelledby="contact-heading" className="py-24 lg:py-32 bg-slate-950/70 reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
             <div className="rounded-lg border border-white/10 bg-gradient-to-br from-blue-950/40 via-slate-900/60 to-slate-950/60 px-6 py-14 sm:p-16 lg:p-24">
-              <h2 id="contact-heading" className="text-6xl lg:text-[8rem] font-black leading-[0.85] tracking-tighter mb-12">Contact <br /><span className="text-shimmer">Me</span>!</h2>
+              <h2 id="contact-heading" className="text-6xl lg:text-[8rem] font-bold leading-[0.85] tracking-tighter mb-12">Contact <br /><span className="text-shimmer">Me</span>!</h2>
               <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
                 <div className="group relative w-full sm:w-auto sm:min-w-[300px]">
                   <a href={MAIL_HREF} className="panel rounded-lg flex flex-col items-center px-8 py-9 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors">
