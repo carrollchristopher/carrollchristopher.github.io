@@ -9,8 +9,9 @@ import { SpotlightGroup } from '@/components/ui/spotlight-group';
 import { CountUp } from '@/components/ui/count-up';
 import { SectionNav } from '@/components/ui/section-nav';
 import { ProfileCard } from '@/components/ui/profile-card';
+import { PlatformMarquee } from '@/components/ui/platform-marquee';
 import { Spotlight } from '@/components/ui/spotlight';
-import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
+import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE, PLATFORMS } from './constants';
 import heroPoster from './assets/hero-poster.webp';
 import heroPoster2x from './assets/hero-poster-2x.webp';
 import heroRobotWebm from './assets/hero-robot.webm';
@@ -359,10 +360,13 @@ const App: React.FC = () => {
         {/* Skills */}
         <section id="skills" aria-labelledby="skills-heading" className="py-24 lg:py-32 bg-slate-950/70 reveal">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="text-center mb-14 lg:mb-20">
+            <div className="text-center mb-12 lg:mb-14">
               <p className="eyebrow">Capability Matrix</p>
               <h2 id="skills-heading" className="text-5xl lg:text-7xl font-black tracking-tighter">Engineering Arsenal.</h2>
             </div>
+          </div>
+          <PlatformMarquee rows={PLATFORMS} />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 mt-12 lg:mt-16">
             <SpotlightGroup>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
                 {SKILLS.map((cat) => (

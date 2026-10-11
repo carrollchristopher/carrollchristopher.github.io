@@ -136,6 +136,11 @@ export const SKILLS: SkillCategory[] = [
   }
 ];
 
+export const PLATFORMS = [
+  ["Azure", "AWS", "Google Cloud", "VMware vSphere", "Hyper-V", "Kubernetes", "Docker", "Terraform", "Ansible"],
+  ["Prometheus", "Grafana", "PowerShell", "Python", "Bash", "Entra ID", "Intune", "Jamf", "Next.js", "React", "PostgreSQL", "HAProxy"]
+];
+
 export const EDUCATION: EducationItem[] = [
   {
     institution: "Florida Atlantic University",

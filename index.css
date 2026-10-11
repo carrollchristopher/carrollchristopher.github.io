@@ -294,6 +294,55 @@
   opacity: 1;
 }
 
+/* ----- Platform marquee ----- */
+.marquee {
+  display: grid;
+  gap: 0.75rem;
+}
+.marquee-row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #475569;
+  transition: color 200ms ease;
+}
+.marquee-item:hover {
+  color: #e2e8f0;
+}
+/* The separator trails every item, so both copies of a row are the same width. */
+.marquee-item::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin: 0 clamp(1.25rem, 2.5vw, 2rem);
+  background: #3b82f6;
+  opacity: 0.6;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ----- Experience timeline ----- */
 .timeline-rail {
   position: absolute;
