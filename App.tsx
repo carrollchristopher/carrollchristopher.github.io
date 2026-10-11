@@ -10,6 +10,7 @@ import { CountUp } from '@/components/ui/count-up';
 import { SectionNav } from '@/components/ui/section-nav';
 import { ProfileCard } from '@/components/ui/profile-card';
 import { PlatformMarquee } from '@/components/ui/platform-marquee';
+import { CopyButton } from '@/components/ui/copy-button';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE, PLATFORMS } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -461,14 +462,20 @@ const App: React.FC = () => {
             <div className="rounded-lg border border-white/10 bg-gradient-to-br from-blue-950/40 via-slate-900/60 to-slate-950/60 px-6 py-14 sm:p-16 lg:p-24">
               <h2 id="contact-heading" className="text-6xl lg:text-[8rem] font-black leading-[0.85] tracking-tighter mb-12">Contact <br /><span className="text-shimmer">Me</span>!</h2>
               <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-                <a href={MAIL_HREF} className="group panel rounded-lg flex flex-col items-center w-full sm:w-auto sm:min-w-[300px] px-8 py-9 hover:bg-blue-600 hover:border-blue-500 transition-colors">
-                  <Mail size={36} className="mb-5 text-blue-400 group-hover:text-white transition-colors" aria-hidden="true" />
-                  <span className="text-lg font-bold break-words">{CHRIS_DATA.email}</span>
-                </a>
-                <a href={TEL_HREF} className="group panel rounded-lg flex flex-col items-center w-full sm:w-auto sm:min-w-[300px] px-8 py-9 hover:bg-blue-600 hover:border-blue-500 transition-colors">
-                  <Phone size={36} className="mb-5 text-blue-400 group-hover:text-white transition-colors" aria-hidden="true" />
-                  <span className="text-lg font-bold">{CHRIS_DATA.phone}</span>
-                </a>
+                <div className="group relative w-full sm:w-auto sm:min-w-[300px]">
+                  <a href={MAIL_HREF} className="panel rounded-lg flex flex-col items-center px-8 py-9 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors">
+                    <Mail size={36} className="mb-5 text-blue-400 group-hover:text-white transition-colors" aria-hidden="true" />
+                    <span className="text-lg font-bold break-words">{CHRIS_DATA.email}</span>
+                  </a>
+                  <CopyButton value={CHRIS_DATA.email} label="email address" className="absolute top-3 right-3" />
+                </div>
+                <div className="group relative w-full sm:w-auto sm:min-w-[300px]">
+                  <a href={TEL_HREF} className="panel rounded-lg flex flex-col items-center px-8 py-9 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors">
+                    <Phone size={36} className="mb-5 text-blue-400 group-hover:text-white transition-colors" aria-hidden="true" />
+                    <span className="text-lg font-bold">{CHRIS_DATA.phone}</span>
+                  </a>
+                  <CopyButton value={CHRIS_DATA.phone} label="phone number" className="absolute top-3 right-3" />
+                </div>
               </div>
             </div>
           </div>
