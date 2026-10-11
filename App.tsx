@@ -264,7 +264,7 @@ const App: React.FC = () => {
                     <a
                       href={RESUME_HREF}
                       download={RESUME_FILENAME}
-                      className="inline-flex items-center gap-2 px-6 py-3.5 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-500 transition-colors"
+                      className="cta-shine inline-flex items-center gap-2 px-6 py-3.5 bg-blue-600 text-white font-bold rounded-md"
                     >
                       <Download className="w-5 h-5" aria-hidden="true" /> Download Resume
                     </a>
