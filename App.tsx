@@ -6,6 +6,7 @@ import {
 import { HeroRobot } from '@/components/ui/hero-robot';
 import { ExperienceTimeline } from '@/components/ui/experience-timeline';
 import { SpotlightGroup } from '@/components/ui/spotlight-group';
+import { CountUp } from '@/components/ui/count-up';
 import { Spotlight } from '@/components/ui/spotlight';
 import { CHRIS_DATA, EXPERIENCE, SKILLS, EDUCATION, CERTIFICATIONS, INVOLVEMENT, WORKING_STYLE } from './constants';
 import heroPoster from './assets/hero-poster.webp';
@@ -339,7 +340,7 @@ const App: React.FC = () => {
                     {CHRIS_DATA.kpis.map((kpi) => (
                       <div key={kpi.label} className="spot panel rounded-lg px-4 py-5 text-center flex flex-col-reverse">
                         <dt className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mt-2 leading-snug">{kpi.label}</dt>
-                        <dd className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight [text-shadow:0_0_24px_rgba(96,165,250,0.35)]">{kpi.value}</dd>
+                        <dd className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight tabular-nums [text-shadow:0_0_24px_rgba(96,165,250,0.35)]"><CountUp value={kpi.value} /></dd>
                       </div>
                     ))}
                   </dl>
