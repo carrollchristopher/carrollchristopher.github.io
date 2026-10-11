@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { ChevronRight } from 'lucide-react';
 import type { ExperienceItem } from '../../types';
 
@@ -8,6 +9,7 @@ function splitLead(text: string) {
 }
 
 function TimelineEntry({ item }: { item: ExperienceItem }) {
+
   return (
     <li className="timeline-entry relative grid gap-x-14 pb-14 pl-9 last:pb-0 lg:grid-cols-[300px_minmax(0,1fr)] lg:pl-0">
       <span className="timeline-node" aria-hidden="true" />
@@ -37,12 +39,65 @@ function TimelineEntry({ item }: { item: ExperienceItem }) {
   );
 }
 
-// Vertical timeline with the period and company beside a rail.
+// Vertical timeline. The rail fills as the section scrolls past the middle of the viewport, and
+// each node lights up once the fill reaches it.
 export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
+  const listRef = useRef<HTMLOListElement>(null);
+  const beamRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    const beam = beamRef.current;
+    if (!list || !beam) return;
+    const entries = Array.from(list.querySelectorAll<HTMLElement>('.timeline-entry'));
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      beam.style.transform = 'scaleY(1)';
+      entries.forEach((entry) => entry.setAttribute('data-lit', ''));
+      return;
+    }
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = list.getBoundingClientRect();
+      const reached = window.innerHeight * 0.55 - rect.top;
+      beam.style.transform = `scaleY(${Math.min(Math.max(reached / rect.height, 0), 1)})`;
+      entries.forEach((entry) => entry.toggleAttribute('data-lit', entry.offsetTop <= reached));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const start = () => {
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      schedule();
+    };
+    const stop = () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+
+    // Only track scrolling while the timeline is near the viewport.
+    const observer = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()), {
+      rootMargin: '25% 0px',
+    });
+    observer.observe(list);
+
+    return () => {
+      observer.disconnect();
+      stop();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <div className="relative text-left [--rail-x:11px] lg:[--rail-x:327px]">
-      <div className="timeline-rail" aria-hidden="true" />
-      <ol>
+      <div className="timeline-rail" aria-hidden="true">
+        <div ref={beamRef} className="timeline-beam" />
+      </div>
+      <ol ref={listRef}>
         {items.map((item) => (
           <TimelineEntry key={`${item.company}-${item.period}`} item={item} />
         ))}
