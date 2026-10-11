@@ -450,6 +450,26 @@
   transform: translateY(0);
 }
 
+/* Items in a .stagger list rise in one after another once their section is revealed. An
+   animation rather than a transition, so the items keep their own hover transitions. */
+.js .reveal .stagger > * {
+  opacity: 0;
+}
+.js .reveal.active .stagger > * {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 150ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto !important;
@@ -461,7 +481,8 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .js .reveal {
+  .js .reveal,
+  .js .reveal .stagger > * {
     opacity: 1;
     transform: none;
   }

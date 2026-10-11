@@ -333,9 +333,9 @@ const App: React.FC = () => {
                   ))}
                 </div>
                 <SpotlightGroup>
-                  <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3">
-                    {CHRIS_DATA.kpis.map((kpi) => (
-                      <div key={kpi.label} className="spot panel rounded-lg px-4 py-5 text-center flex flex-col-reverse">
+                  <dl className="stagger mt-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3">
+                    {CHRIS_DATA.kpis.map((kpi, i) => (
+                      <div key={kpi.label} style={{ '--i': i } as React.CSSProperties} className="spot panel rounded-lg px-4 py-5 text-center flex flex-col-reverse">
                         <dt className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mt-2 leading-snug">{kpi.label}</dt>
                         <dd className="text-3xl lg:text-4xl font-black text-blue-300 leading-tight tabular-nums [text-shadow:0_0_24px_rgba(96,165,250,0.35)]"><CountUp value={kpi.value} /></dd>
                       </div>
@@ -369,9 +369,9 @@ const App: React.FC = () => {
           <PlatformMarquee rows={PLATFORMS} />
           <div className="max-w-7xl mx-auto px-6 lg:px-12 mt-12 lg:mt-16">
             <SpotlightGroup>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-                {SKILLS.map((cat) => (
-                  <div key={cat.title} className="spot panel panel-hover rounded-lg p-7 text-left">
+              <div className="stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+                {SKILLS.map((cat, i) => (
+                  <div key={cat.title} style={{ '--i': i } as React.CSSProperties} className="spot panel panel-hover rounded-lg p-7 text-left">
                     <h3 className="text-xl font-black text-white mb-5 pb-4 border-b border-white/10">{cat.title}</h3>
                     <ul className="flex flex-wrap gap-2">
                       {cat.skills.map((skill) => (
@@ -425,9 +425,9 @@ const App: React.FC = () => {
                   <div className="shrink-0 w-12 h-12 border border-blue-500/30 bg-blue-500/10 rounded-md flex items-center justify-center text-blue-400" aria-hidden="true"><Award size={24} /></div>
                   <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">Certifications</h2>
                 </div>
-                <ul className="grid gap-3">
-                  {CERTIFICATIONS.map((cert) => (
-                    <li key={cert} className="spot panel panel-hover rounded-lg px-5 py-4 flex items-center gap-4">
+                <ul className="stagger grid gap-3">
+                  {CERTIFICATIONS.map((cert, i) => (
+                    <li key={cert} style={{ '--i': i } as React.CSSProperties} className="spot panel panel-hover rounded-lg px-5 py-4 flex items-center gap-4">
                       <Shield className="text-blue-500 shrink-0" size={22} aria-hidden="true" />
                       <span className="text-base sm:text-lg font-bold text-slate-100">{cert}</span>
                     </li>
